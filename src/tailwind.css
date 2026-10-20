@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/*
+ * Paleta da Passage: areia e pedra como base neutra,
+ * verde-salvia como acento e terracota como apoio.
+ *
+ * Cada cor aqui vira classe automaticamente:
+ *   --color-sage-600  ->  bg-sage-600, text-sage-600, border-sage-600
+ */
+@theme {
+  --color-sand-50:  #faf8f5;
+  --color-sand-100: #f2eee8;
+  --color-sand-200: #e5ded4;
+
+  --color-stone-400: #a89e92;
+  --color-stone-600: #6b6256;
+
+  --color-ink: #2e2a26;
+
+  --color-sage-400: #7d9688;
+  --color-sage-500: #5c7a6b;
+  --color-sage-600: #4a6358;
+  --color-sage-700: #3b4f46;
+
+  --color-clay-400: #b08968;
+
+  --color-danger: #a4553c;
+}
