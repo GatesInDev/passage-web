@@ -1,0 +1,77 @@
+/*
+ * O visual desta tela é feito com Tailwind, direto no HTML.
+ * Aqui ficam só as duas coisas que o Tailwind não cobre bem:
+ * a animação de fundo e a transição entre os slides.
+ */
+
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* ---------- Manchas de luz do painel esquerdo ---------- */
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+
+  &--one {
+    width: 24rem;
+    height: 24rem;
+    top: -6rem;
+    left: -8rem;
+    background: var(--color-sage-500);
+    opacity: 0.4;
+    animation: drift-one 18s ease-in-out infinite;
+  }
+
+  &--two {
+    width: 20rem;
+    height: 20rem;
+    right: -7rem;
+    bottom: -5rem;
+    background: var(--color-clay-400);
+    opacity: 0.22;
+    animation: drift-two 22s ease-in-out infinite;
+  }
+}
+
+@keyframes drift-one {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(3rem, 2.5rem) scale(1.12); }
+}
+
+@keyframes drift-two {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-2.5rem, -3rem) scale(1.08); }
+}
+
+/* ---------- Carrossel ---------- */
+
+.slide {
+  grid-area: 1 / 1; /* todos empilhados no mesmo lugar */
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+
+  &--active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+/* Respeita quem pediu menos animação no sistema */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob {
+    animation: none;
+  }
+
+  .slide {
+    transition: opacity 0.2s ease;
+    transform: none;
+  }
+}
