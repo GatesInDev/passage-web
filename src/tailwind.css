@@ -25,4 +25,63 @@
   --color-clay-400: #b08968;
 
   --color-danger: #a4553c;
+
+  /*
+   * Telas internas (ERP), conforme o prototipo do Figma.
+   *
+   * brand   verde-oliva: botao primario, aba ativa, codigos e destaques
+   * carbon  barra superior e texto principal
+   * canvas  fundo das telas de formulario e divisoria entre linhas
+   * panel   cabecalho de tabela e de painel recolhivel
+   *
+   * Os cinzas de superficie e borda sao o `zinc` padrao do Tailwind.
+   */
+  --color-brand-50:  #f0f4ed;
+  --color-brand-100: #e3e8d8;
+  --color-brand-200: #c8d1b0;
+  --color-brand-500: #747a47;
+  --color-brand-600: #5c6038;
+  --color-brand-700: #474a2b;
+
+  --color-carbon-700: #3a3a3a;
+  --color-carbon-800: #2a2a2a;
+  --color-carbon-900: #1a1a1a;
+
+  --color-canvas: #f0f0f0;
+  --color-panel:  #f8f8f9;
+
+  /*
+   * Cores de situacao, com os valores exatos do prototipo (as cores
+   * padrao do Tailwind 4 sao mais saturadas que estas).
+   *
+   * warning   laranja: suspenso, alertas de vencimento
+   * critical  vermelho: erro de campo, remocao, afastado
+   * info      azul: em implantacao, ferias
+   * tag-*     tipos de rota (intermunicipal, metropolitana, interestadual)
+   *
+   * "Ativo" usa o proprio brand; "inativo" usa zinc.
+   */
+  --color-warning-50:  #fff7ed;
+  --color-warning-200: #fed7aa;
+  --color-warning-500: #f97316;
+  --color-warning-700: #c2410c;
+
+  --color-critical-50:  #fff1f2;
+  --color-critical-200: #fecaca;
+  --color-critical-300: #fca5a5;
+  --color-critical-600: #dc2626;
+  --color-critical-700: #b91c1c;
+  --color-critical-800: #991b1b;
+
+  --color-info-50:  #eff6ff;
+  --color-info-500: #3b82f6;
+  --color-info-700: #1d4ed8;
+
+  --color-tag-sky:    #0369a1;
+  --color-tag-teal:   #0f766e;
+  --color-tag-violet: #7c3aed;
+
+  /* Carregadas em src/index.html; as demais sao reserva. */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", monospace;
 }

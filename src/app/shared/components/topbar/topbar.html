@@ -1,0 +1,66 @@
+<!--
+  Em telas largas: marca, módulos e ações em uma linha só.
+  Em telas estreitas os módulos descem para uma segunda linha, rolável.
+-->
+<header class="flex flex-wrap items-stretch border-b-2 border-brand-500 bg-carbon-900 text-white">
+
+  <div class="flex h-[42px] shrink-0 items-center gap-2 px-4">
+    <button
+      type="button"
+      class="flex size-5 cursor-pointer items-center justify-center rounded-sm bg-brand-500 text-white
+             transition-colors hover:bg-brand-600 focus-visible:outline-2 focus-visible:outline-offset-2
+             focus-visible:outline-white"
+      aria-label="Abrir menu"
+      (click)="menuClick.emit()"
+    >
+      <app-icon name="menu" [size]="12" [strokeWidth]="2.75" />
+    </button>
+
+    <span class="text-[13px] font-bold uppercase tracking-[0.04em]">{{ brand() }}</span>
+
+    @if (version()) {
+      <span class="text-[10px] text-zinc-400">{{ version() }}</span>
+    }
+  </div>
+
+  @if (visibleItems().length > 0) {
+    <nav
+      class="order-last flex h-10 w-full items-stretch overflow-x-auto border-t border-carbon-800
+             md:order-none md:h-[42px] md:w-auto md:min-w-0 md:flex-1 md:border-t-0"
+      aria-label="Módulos"
+    >
+      @for (item of visibleItems(); track item.link) {
+        <a
+          class="flex shrink-0 items-center whitespace-nowrap border-r border-carbon-800 px-4 text-xs
+                 text-zinc-400 transition-colors hover:bg-carbon-800 hover:text-white
+                 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white
+                 aria-[current=page]:bg-brand-500 aria-[current=page]:font-semibold
+                 aria-[current=page]:text-white md:first:border-l"
+          [routerLink]="item.link"
+          routerLinkActive
+          ariaCurrentWhenActive="page"
+          [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+        >
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+  }
+
+  <div class="ml-auto flex h-[42px] shrink-0 items-center gap-2.5 px-4">
+    <ng-content />
+
+    @if (userName()) {
+      <button
+        type="button"
+        class="cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-2
+               focus-visible:outline-white"
+        [attr.aria-label]="'Conta de ' + userName()"
+        (click)="userClick.emit()"
+      >
+        <app-avatar [name]="userName()" tone="brand" />
+      </button>
+    }
+  </div>
+
+</header>

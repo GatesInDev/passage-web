@@ -1,0 +1,89 @@
+<div class="flex min-h-[27px] flex-wrap items-center gap-2 px-4 py-1 text-[11px] text-zinc-500 empty:hidden"><ng-content select="[table-summary]" /></div>
+
+<div class="overflow-x-auto">
+  <table
+    class="w-full border-collapse text-left text-xs text-carbon-900"
+    [attr.aria-label]="label() || null"
+    [attr.aria-busy]="loading() ? 'true' : null"
+  >
+    <thead>
+      <tr class="border-y border-zinc-200 bg-panel">
+        @if (selectable()) {
+          <th scope="col" class="w-px py-0 pl-3 pr-1 align-middle">
+            <app-checkbox
+              ariaLabel="Selecionar todas as linhas"
+              [checked]="allSelected()"
+              [indeterminate]="someSelected()"
+              [disabled]="rows().length === 0"
+              (checkedChange)="toggleAll($event)"
+            />
+          </th>
+        }
+
+        @for (column of columns(); track column.key) {
+          <th
+            scope="col"
+            class="h-7 whitespace-nowrap px-3 text-[10px] font-semibold uppercase tracking-[0.04em] text-zinc-500"
+            [class]="align[column.align ?? 'left']"
+            [style.width]="column.width ?? null"
+          >
+            {{ column.header }}
+          </th>
+        }
+      </tr>
+    </thead>
+
+    <tbody [class]="loading() && rows().length > 0 ? 'opacity-60' : ''">
+      @for (row of rows(); track rowId()(row); let index = $index) {
+        <tr
+          class="border-b border-canvas transition-colors"
+          [class]="isSelected(row) ? 'bg-brand-50' : 'even:bg-zinc-50 hover:bg-zinc-100'"
+        >
+          @if (selectable()) {
+            <td class="py-0 pl-3 pr-1 align-middle">
+              <app-checkbox
+                [ariaLabel]="'Selecionar linha ' + (index + 1)"
+                [checked]="isSelected(row)"
+                (checkedChange)="toggleRow(row, $event)"
+              />
+            </td>
+          }
+
+          @for (column of columns(); track column.key) {
+            <td class="h-8 px-3 py-1" [class]="cellClass(column)">
+              @let template = templates().get(column.key);
+
+              @if (template) {
+                <ng-container
+                  [ngTemplateOutlet]="template"
+                  [ngTemplateOutletContext]="{ $implicit: row, index: index }"
+                />
+              } @else {
+                {{ display(column, row) }}
+              }
+            </td>
+          }
+        </tr>
+      } @empty {
+        <tr>
+          <td class="px-4 py-10 text-center" [attr.colspan]="colspan()">
+            @if (loading()) {
+              <span class="inline-flex items-center gap-2 text-[11px] text-zinc-600" role="status">
+                <app-spinner [size]="14" />
+                Carregando...
+              </span>
+            } @else {
+              <div class="flex flex-col items-center gap-1 text-zinc-500">
+                <app-icon name="inbox" [size]="24" [strokeWidth]="1.5" />
+                <p class="mt-1 text-xs font-medium text-carbon-900">{{ emptyMessage() }}</p>
+                @if (emptyHint()) {
+                  <p class="text-[11px]">{{ emptyHint() }}</p>
+                }
+              </div>
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
